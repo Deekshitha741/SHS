@@ -90,7 +90,7 @@ body {
 
 .btn-login {
     background-color: var(--primary-color);
-    color: white;
+    color: white !important;
     padding: 0.5rem 1.5rem;
     border-radius: 0.375rem;
     text-decoration: none;
@@ -100,8 +100,17 @@ body {
 
 .btn-login:hover {
     background-color: var(--primary-dark);
-    color: white;
+    color: white !important;
+    /* Keep white on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+
+/* Announcement Banner */
+/* ========================================
+   ANNOUNCEMENT FIX - COMPLETE WORKING VERSION
+   REPLACE THE ANNOUNCEMENT SECTION IN static/css/style.css
+   ======================================== */
 
 /* Announcement Banner */
 .announcement-banner {
@@ -109,33 +118,70 @@ body {
     color: white;
     padding: 0.75rem 0;
     overflow: hidden;
+    position: relative;
+    width: 100%;
+    z-index: 900;
+    /* Below navbar */
 }
 
 .announcement-scroll {
     display: flex;
-    animation: scroll 15s linear infinite;
     white-space: nowrap;
+    animation: scroll 10s linear infinite;
 }
 
 .announcement-item {
     padding: 0 4rem;
     font-weight: 500;
+    display: inline-block;
+    white-space: nowrap;
 }
 
+/* Marquee animation - scrolls from right to left */
 @keyframes scroll {
     0% {
-        transform: translateX(0);
+        transform: translateX(50%);
     }
+
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
 }
 
-/* Container */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+/* Pause on hover */
+.announcement-banner:hover .announcement-scroll {
+    animation-play-state: paused;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .announcement-banner {
+        padding: 0.625rem 0;
+    }
+
+    .announcement-item {
+        padding: 0 2rem;
+        font-size: 0.9rem;
+    }
+
+    .announcement-scroll {
+        animation-duration: 20s;
+    }
+}
+
+@media (max-width: 480px) {
+    .announcement-banner {
+        padding: 0.5rem 0;
+    }
+
+    .announcement-item {
+        padding: 0 1.5rem;
+        font-size: 0.85rem;
+    }
+
+    .announcement-scroll {
+        animation-duration: 15s;
+    }
 }
 
 /* Cards */
@@ -235,7 +281,8 @@ thead {
     background-color: var(--background);
 }
 
-th, td {
+th,
+td {
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
@@ -331,8 +378,10 @@ tr:hover {
     box-shadow: var(--shadow-lg);
 
     /* ✅ REQUIRED FOR SCROLLING */
-    max-height: 90vh;        /* never exceed viewport height */
-    overflow-y: auto;        /* enable vertical scroll */
+    max-height: 90vh;
+    /* never exceed viewport height */
+    overflow-y: auto;
+    /* enable vertical scroll */
 }
 
 .modal-header {
@@ -360,8 +409,13 @@ tr:hover {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Forgot Password link – Sandip Hostel theme */
@@ -374,7 +428,8 @@ tr:hover {
 .forgot-password-link {
     font-size: 0.85rem;
     font-weight: 500;
-    color: #d10000; /* Sandip red */
+    color: #d10000;
+    /* Sandip red */
     text-decoration: none;
     transition: color 0.2s ease, text-decoration 0.2s ease;
 }
@@ -382,4 +437,148 @@ tr:hover {
 .forgot-password-link:hover {
     color: #a80000;
     text-decoration: underline;
+}
+
+/* ========================================
+   ADD THESE STYLES TO static/css/style.css
+   ADD AFTER THE EXISTING NAVBAR SECTION
+   ======================================== */
+
+/* ========================================
+   RESPONSIVE NAVBAR LAYOUT FIX
+   ======================================== */
+
+/* Mobile Navbar Layout */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.75rem 0;
+    }
+
+    .nav-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "hamburger-space logo logout"
+            "welcome welcome welcome";
+        gap: 0.75rem;
+        padding: 0.5rem 1rem;
+        align-items: center;
+    }
+
+    /* Hamburger area (empty, button is fixed position) */
+    .nav-container::before {
+        content: '';
+        grid-area: hamburger-space;
+        width: 60px;
+    }
+
+    /* Logo in center */
+    .logo {
+        grid-area: logo;
+        justify-self: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .logo-img {
+        margin: 0 auto;
+    }
+
+    .logo span {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    /* Nav links (Login/Logout) in top right */
+    .nav-links {
+        grid-area: logout;
+        justify-self: end;
+        flex-direction: column;
+        gap: 0.25rem;
+        align-items: flex-end;
+    }
+
+    .nav-links li {
+        margin: 0;
+    }
+
+    /* Welcome message centered below logo */
+    .nav-links li:first-child {
+        grid-area: welcome;
+        justify-self: center;
+        text-align: center;
+        width: 100%;
+        order: 2;
+    }
+
+    .nav-links li:first-child a {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .btn-login {
+        padding: 0.4rem 1rem;
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo span {
+        font-size: 0.85rem;
+    }
+
+    .logo-img {
+        height: 1.5rem;
+        width: 5rem;
+    }
+}
+
+/* ========================================
+   FILTER SECTION - LEFT ALIGN ON MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .filter-section {
+        text-align: left;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .filter-group {
+        width: 100%;
+        text-align: left;
+    }
+
+    .filter-group label {
+        text-align: left;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .filter-row button[type="submit"] {
+        width: 100%;
+        align-self: stretch;
+    }
+}
+
+/* ========================================
+   ACTION BUTTONS - LEFT ALIGN ON MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
 }
