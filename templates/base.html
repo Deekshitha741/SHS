@@ -23,15 +23,16 @@
                 <img src="https://i.ibb.co/kgsS6RH7/sandip-logo.jpg" alt="SHS Logo" class="logo-img">
                 <!-- <a href="https://imgbb.com/"><img src="https://i.ibb.co/kgsS6RH7/sandip-logo.jpg" alt="sandip logo" border="0"></a> -->
             </a>
-            <span class="nav-container" style="color: #e31b1b; font-size: 1.5rem "><strong>Sandip Hostel Services</span></strong>
+            <span class="nav-container" style="color: #e31b1b; font-size: 1.5rem "><strong>Sandip Hostel
+                    Services</span></strong>
 
             <ul class="nav-links">
                 {% if current_user.is_authenticated %}
                 <li class="animate-fadeIn"><a href="#">Welcome, {{ current_user.username }}!</a></li>
-                <li class="animate-fadeIn" style="color: white;"><a href="{{ url_for('auth.logout') }}"
+                <li class="animate-fadeIn" class = "loin"><a href="{{ url_for('auth.logout') }}"
                         class="btn-login">Logout</a></li>
                 {% else %}
-                <li class="animate-fadeIn" style="color: white;"><a href="{{ url_for('auth.login') }}"
+                <li class="animate-fadeIn" class = "loin"><a href="{{ url_for('auth.login') }}"
                         class="btn-login">Login</a></li>
                 {% endif %}
             </ul>
@@ -68,27 +69,33 @@
         });
 
         // Fetch and display announcements dynamically
+        // Fetch and display announcements dynamically with infinite scroll
         function loadAnnouncements() {
             fetch('/api/active-announcements')
                 .then(response => response.json())
                 .then(data => {
                     if (data.success && data.announcements.length > 0) {
                         const banner = document.getElementById('announcementBanner');
-                        let scrollContent = '';
 
-                        // Duplicate announcements for seamless scrolling
-                        data.announcements.forEach(announcement => {
-                            scrollContent += `<span class="announcement-item">📢 ${announcement.message}</span>`;
+                        // Build announcement content
+                        let announcementText = '';
+                        data.announcements.forEach((announcement) => {
+                            announcementText += `<span class="announcement-item">📢 ${announcement.message}</span>`;
                         });
-                        scrollContent += scrollContent; // Duplicate for continuous scroll
+
+                        // Repeat content for seamless infinite scroll
+                        let repeatedContent = '';
+                        for (let i = 0; i < 20; i++) {
+                            repeatedContent += announcementText;
+                        }
 
                         banner.innerHTML = `
-                            <div class="announcement-banner animate-slideInDown">
-                                <div class="announcement-scroll">
-                                    ${scrollContent}
-                                </div>
+                        <div class="announcement-banner">
+                            <div class="announcement-scroll">
+                                ${repeatedContent}
                             </div>
-                        `;
+                        </div>
+                    `;
                         banner.style.display = 'block';
                     } else {
                         document.getElementById('announcementBanner').style.display = 'none';
