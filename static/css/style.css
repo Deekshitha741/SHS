@@ -43,6 +43,7 @@ body {
    ======================================== */
 
 /* Navigation Bar */
+
 .navbar {
     background-color: var(--surface);
     box-shadow: var(--shadow);
@@ -62,7 +63,10 @@ body {
     position: relative;
 }
 
-/* Logo Image - Always LEFT */
+/* ========================================
+   LOGO IMAGE - Always LEFT
+   ======================================== */
+
 .logo {
     display: flex;
     align-items: center;
@@ -83,28 +87,49 @@ body {
     transform: scale(1.05);
 }
 
-/* Logo Text - ALWAYS CENTERED using absolute positioning */
-.logo span,
-.nav-container > span {
+/* ========================================
+   NAVBAR TEXT - Responsive Display Logic
+   ======================================== */
+
+/* Hide any span that might be duplicate */
+.logo span {
+    display: none !important;
+}
+
+/* Main navbar text - centered */
+.nav-container>span {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--primary-color);
-    white-space: nowrap;
-    z-index: 1;
     text-align: center;
-    pointer-events: none; /* Prevents blocking clicks */
+    pointer-events: none;
+    z-index: 1;
 }
 
-/* Navigation links - Always RIGHT */
+/* Full text - show by default */
+.nav-container>span .full-text {
+    display: inline;
+}
+
+/* Abbreviated text - hidden by default */
+.nav-container>span .short-text {
+    display: none;
+}
+
+/* ========================================
+   NAVIGATION LINKS - Always RIGHT
+   ======================================== */
+
 .nav-links {
     display: flex;
     gap: 1rem;
     list-style: none;
     flex-shrink: 0;
     z-index: 2;
+    align-items: center;
 }
 
 .nav-links a {
@@ -119,14 +144,322 @@ body {
 }
 
 /* Welcome text - always dark gray */
-.nav-links li:first-child a:not(.btn-login) {
+.nav-links li:first-child,
+.nav-links li:first-child a,
+.welcome-text {
     color: var(--primary-dark) !important;
     font-weight: 500;
 }
 
-.nav-links li:first-child a:not(.btn-login):hover {
+.nav-links li:first-child a {
     color: var(--primary-dark) !important;
 }
+
+/* ========================================
+   LOGIN/LOGOUT BUTTON
+   ======================================== */
+
+.btn-login {
+    background-color: var(--primary-color);
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.btn-login:hover {
+    background-color: var(--primary-dark);
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+a.btn-login {
+    color: white !important;
+}
+
+/* ========================================
+   WELCOME TEXT POSITIONING
+   ======================================== */
+
+/* Desktop - welcome text inline */
+.welcome-text {
+    display: inline;
+}
+
+/* Mobile welcome text - hidden by default, shown below button */
+.welcome-mobile {
+    display: none;
+    position: fixed;
+    top: 4.5rem;
+    right: 1rem;
+    color: var(--primary-dark);
+    font-size: 0.8rem;
+    font-weight: 500;
+    z-index: 999;
+    background-color: var(--surface);
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+/* DESKTOP & TABLET (>768px) */
+/* Show full text: "Sandip Hostel Services" */
+@media (min-width: 769px) {
+    .nav-container>span {
+        font-size: 1.5rem;
+    }
+
+    .nav-container>span .full-text {
+        display: inline;
+    }
+
+    .nav-container>span .short-text {
+        display: none;
+    }
+}
+
+/* Large Desktop (>1400px) */
+@media (min-width: 1400px) {
+    .nav-container>span {
+        font-size: 1.6rem;
+    }
+}
+
+/* Desktop (1200px - 1399px) */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .nav-container>span {
+        font-size: 1.5rem;
+    }
+}
+
+/* Desktop (1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .nav-container>span {
+        font-size: 1.3rem;
+    }
+}
+
+/* Tablet (900px - 1023px) */
+@media (min-width: 900px) and (max-width: 1023px) {
+    .navbar {
+        padding: 0.875rem 0;
+    }
+
+    .nav-container {
+        padding: 0 1.5rem;
+    }
+
+    .nav-container>span {
+        font-size: 1.2rem;
+    }
+
+    .logo-img {
+        height: 1.8rem;
+        width: 6.5rem;
+    }
+
+    .btn-login {
+        padding: 0.45rem 1.2rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Tablet Portrait (769px - 899px) */
+@media (min-width: 769px) and (max-width: 899px) {
+    .navbar {
+        padding: 0.75rem 0;
+    }
+
+    .nav-container {
+        padding: 0 1.25rem;
+    }
+
+    .nav-container>span {
+        font-size: 1.1rem;
+    }
+
+    .logo-img {
+        height: 1.6rem;
+        width: 6rem;
+    }
+
+    .btn-login {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ========================================
+   MOBILE (481px - 768px)
+   Show "SHS" instead of full text
+   ======================================== */
+@media (min-width: 481px) and (max-width: 768px) {
+    .navbar {
+        padding: 0.6rem 0;
+    }
+
+    .nav-container {
+        padding: 0.5rem 1rem;
+    }
+
+    /* Hide full text, show abbreviated */
+    .nav-container>span .full-text {
+        display: inline;
+        font-size: 1.2rem;
+    }
+
+    .nav-container>span .short-text {
+        display: none;
+    }
+
+    .nav-container>span {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .logo-img {
+        height: 1.5rem;
+        width: 5.5rem;
+    }
+
+    .btn-login {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    /* Keep welcome text inline on mobile landscape */
+    .nav-links li:first-child {
+        display: inline-block;
+    }
+
+}
+
+/* ========================================
+   SMALL MOBILE (<480px)
+   Hide navbar text completely
+   Move welcome text below logout button
+   ======================================== */
+@media (min-width: 360px) and (max-width: 480px) {
+    .navbar {
+        padding: 0.5rem 0;
+    }
+
+    .nav-container {
+        padding: 0.4rem 0.75rem;
+    }
+
+
+    .nav-container>span .short-text {
+        display: none;
+    }
+
+    .nav-container>span .full-text {
+        display: none;
+    }
+
+    .logo-img {
+        height: 1.4rem;
+        width: 5rem;
+    }
+
+    .btn-login {
+        padding: 0.35rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    /* Hide welcome text from navbar */
+    .nav-links li:first-child {
+        display: inline-block;
+    }
+
+    /* Show welcome text below logout button */
+}
+
+/* Extra Small Mobile (<360px) */
+@media (max-width: 359px) {
+    .navbar {
+        padding: 0.5rem 0;
+    }
+
+    .nav-container {
+        padding: 0.4rem 0.5rem;
+    }
+
+    .nav-container>span .short-text {
+        display: none;
+    }
+
+    .nav-container>span .full-text {
+        display: none;
+    }
+
+
+    .logo-img {
+        height: 1.3rem;
+        width: 4.5rem;
+    }
+
+    .btn-login {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.75rem;
+    }
+
+    .welcome-mobile {
+        display: block;
+        top: 4rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Very Small Mobile (<320px) */
+@media (max-width: 319px) {
+    .logo-img {
+        height: 1.2rem;
+        width: 4rem;
+    }
+
+    .btn-login {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+    }
+
+    .welcome-mobile {
+        font-size: 0.7rem;
+    }
+}
+
+/* ========================================
+   CRITICAL OVERRIDES
+   ======================================== */
+
+/* Ensure text stays centered when visible */
+.nav-container>span {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    text-align: center !important;
+}
+
+/* Prevent navbar height growth */
+@media (max-width: 768px) {
+    .navbar {
+        min-height: auto !important;
+    }
+
+    .nav-container {
+        min-height: auto !important;
+        flex-wrap: nowrap !important;
+    }
+}
+
 
 /* Login button - ALWAYS WHITE TEXT */
 .btn-login {
@@ -160,24 +493,27 @@ body {
 
 /* Desktop (>1400px) - Largest */
 @media (min-width: 1400px) {
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 1.6rem !important;
     }
 }
 
 /* Large Desktop (1200px - 1399px) */
 @media (min-width: 1200px) and (max-width: 1399px) {
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 1.5rem !important;
     }
 }
 
 /* Desktop (1024px - 1199px) */
 @media (min-width: 1024px) and (max-width: 1199px) {
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 1.3rem !important;
     }
 }
@@ -187,22 +523,22 @@ body {
     .navbar {
         padding: 0.875rem 0;
     }
-    
+
     .nav-container {
         padding: 0 1.5rem;
     }
-    
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 1.2rem !important;
         max-width: 60%;
     }
-    
+
     .logo-img {
         height: 1.8rem;
         width: 6.5rem;
     }
-    
+
     .btn-login {
         padding: 0.45rem 1.2rem;
         font-size: 0.95rem;
@@ -214,23 +550,23 @@ body {
     .navbar {
         padding: 0.75rem 0;
     }
-    
+
     .nav-container {
         padding: 0 1.25rem;
     }
-    
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 1.1rem !important;
         max-width: 55%;
         line-height: 1.2;
     }
-    
+
     .logo-img {
         height: 1.6rem;
         width: 6rem;
     }
-    
+
     .btn-login {
         padding: 0.4rem 1rem;
         font-size: 0.9rem;
@@ -242,24 +578,24 @@ body {
     .navbar {
         padding: 0.6rem 0;
     }
-    
+
     .nav-container {
         padding: 0.5rem 1rem;
     }
-    
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 1rem !important;
         max-width: 50%;
         white-space: normal;
         line-height: 1.2;
     }
-    
+
     .logo-img {
         height: 1.5rem;
         width: 5.5rem;
     }
-    
+
     .btn-login {
         padding: 0.4rem 0.9rem;
         font-size: 0.85rem;
@@ -271,24 +607,24 @@ body {
     .navbar {
         padding: 0.5rem 0;
     }
-    
+
     .nav-container {
         padding: 0.4rem 0.75rem;
     }
-    
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 0.9rem !important;
         max-width: 45%;
         white-space: normal;
         line-height: 1.2;
     }
-    
+
     .logo-img {
         height: 1.4rem;
         width: 5rem;
     }
-    
+
     .btn-login {
         padding: 0.35rem 0.8rem;
         font-size: 0.8rem;
@@ -300,24 +636,24 @@ body {
     .navbar {
         padding: 0.5rem 0;
     }
-    
+
     .nav-container {
         padding: 0.4rem 0.75rem;
     }
-    
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 0.8rem !important;
         max-width: 40%;
         white-space: normal;
         line-height: 1.2;
     }
-    
+
     .logo-img {
         height: 1.3rem;
         width: 4.5rem;
     }
-    
+
     .btn-login {
         padding: 0.35rem 0.7rem;
         font-size: 0.75rem;
@@ -329,24 +665,24 @@ body {
     .navbar {
         padding: 0.5rem 0;
     }
-    
+
     .nav-container {
         padding: 0.4rem 0.5rem;
     }
-    
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         font-size: 0.7rem !important;
         max-width: 35%;
         white-space: normal;
         line-height: 1.2;
     }
-    
+
     .logo-img {
         height: 1.2rem;
         width: 4rem;
     }
-    
+
     .btn-login {
         padding: 0.3rem 0.6rem;
         font-size: 0.7rem;
@@ -355,8 +691,9 @@ body {
 
 /* Ensure text wraps nicely on small screens */
 @media (max-width: 768px) {
+
     .logo span,
-    .nav-container > span {
+    .nav-container>span {
         white-space: normal;
         word-break: break-word;
     }
@@ -368,7 +705,7 @@ body {
 
 /* Override any conflicting styles */
 .logo span,
-.nav-container > span {
+.nav-container>span {
     position: absolute !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
@@ -738,7 +1075,7 @@ tr:hover {
         width: 60px;
     } */
 
-     /* Keep logo pinned to top-left */
+    /* Keep logo pinned to top-left */
 
     /* Logo in center */
     .logo {
@@ -746,13 +1083,13 @@ tr:hover {
         justify-self: start;
         justify-content: flex-start;
         align-items: center;
-         text-align: left;
+        text-align: left;
         flex-direction: row;
         gap: 0.5rem;
     }
 
     .logo-img {
-       margin: 0;
+        margin: 0;
         width: clamp(4.5rem, 18vw, 6rem);
         height: clamp(1.3rem, 5vw, 1.8rem);
     }
@@ -801,7 +1138,7 @@ tr:hover {
     }
 
     .logo-img {
-       width: clamp(4rem, 22vw, 5rem);
+        width: clamp(4rem, 22vw, 5rem);
         height: clamp(1.1rem, 6vw, 1.5rem);
     }
 }
@@ -854,34 +1191,6 @@ tr:hover {
     }
 }
 
-/* ========================================
-   ADDITIONAL FIXES
-   Add these to the END of static/css/style.css
-   ======================================== */
-
-/* ========================================
-   FIX 1: WELCOME TEXT COLOR
-   Always primary-dark, never primary color
-   ======================================== */
-
-/* .nav-links li:first-child a {
-    color: var(--primary-dark) !important;
-    font-weight: 500;
-}
-.loin {
-    color: white !important;
-    font-weight: 500;
-}
-
-/* Override any hover effects */
-/* .nav-links li:first-child a:hover {
-    color: var(--primary-dark) !important;
-} */
-
-/* ========================================
-   FIX 2: TABLE BUTTONS RESPONSIVE
-   Prevent buttons from going off-screen
-   ======================================== */
 
 /* Desktop - keep buttons in one row */
 @media (min-width: 769px) {
