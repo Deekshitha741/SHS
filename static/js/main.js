@@ -166,6 +166,7 @@ function initializeResponsiveNavigation() {
     // Add to page
     document.body.appendChild(hamburger);
     document.body.appendChild(overlay);
+    document.body.classList.add('has-mobile-sidebar-toggle');
 
     // Toggle sidebar
     function toggleSidebar() {

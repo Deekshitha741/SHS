@@ -112,6 +112,13 @@
     }
 }
 
+/* Keep logo beside hamburger with 0.3rem spacing on pages where sidebar exists */
+@media (max-width: 1024px) {
+    body.has-mobile-sidebar-toggle .navbar .logo {
+        margin-left: calc(1rem + 3rem + 0.3rem);
+    }
+}
+
 /* ========================================
    MOBILE (768px)
    ======================================== */
@@ -128,7 +135,7 @@
         padding: 0.5rem 1rem !important;
         min-height: auto !important;
         display: flex !important;
-        align-items: center !important;
+        align-items: flex-start !important;
         justify-content: space-between !important;
         flex-wrap: nowrap !important;
     }
@@ -136,6 +143,8 @@
     .logo {
         gap: 0.5rem;
         flex-shrink: 0;
+        justify-content: flex-start;
+        margin-left: 0;
     }
 
     .logo span {
@@ -147,8 +156,8 @@
     }
 
     .logo-img {
-        height: 1.5rem !important;
-        width: 5rem !important;
+         height: clamp(1.3rem, 5vw, 1.8rem) !important;
+        width: clamp(4.5rem, 18vw, 6rem) !important;
     }
 
     .nav-links {
@@ -237,8 +246,8 @@
     }
 
     .logo-img {
-        height: 1.3rem !important;
-        width: 4.5rem !important;
+        height: clamp(1.1rem, 6vw, 1.5rem) !important;
+        width: clamp(4rem, 22vw, 5rem) !important;
     }
 
     .btn-login {

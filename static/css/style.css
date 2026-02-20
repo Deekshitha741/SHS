@@ -119,12 +119,12 @@ body {
 }
 
 /* Welcome text - always dark gray */
-.nav-links li:first-child a {
+.nav-links li:first-child a:not(.btn-login) {
     color: var(--primary-dark) !important;
     font-weight: 500;
 }
 
-.nav-links li:first-child a:hover {
+.nav-links li:first-child a:not(.btn-login):hover {
     color: var(--primary-dark) !important;
 }
 
@@ -142,12 +142,14 @@ body {
 .btn-login:hover {
     background-color: var(--primary-dark);
     color: white !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Force white color on any link inside btn-login */
-a.btn-login {
+.nav-links a.btn-login,
+.nav-links a.btn-login:hover,
+.nav-links a.btn-login:focus,
+.nav-links a.btn-login:active,
+.nav-links a.btn-login:visited {
     color: white !important;
 }
 
@@ -720,34 +722,39 @@ tr:hover {
 
     .nav-container {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: auto 1fr;
         grid-template-areas:
-            "hamburger-space logo logout"
-            "welcome welcome welcome";
+            "logo logout"
+            "welcome welcome";
         gap: 0.75rem;
         padding: 0.5rem 1rem;
         align-items: center;
     }
 
-    /* Hamburger area (empty, button is fixed position) */
+    /* Hamburger area (empty, button is fixed position)
     .nav-container::before {
         content: '';
         grid-area: hamburger-space;
         width: 60px;
-    }
+    } */
+
+     /* Keep logo pinned to top-left */
 
     /* Logo in center */
     .logo {
         grid-area: logo;
-        justify-self: center;
+        justify-self: start;
+        justify-content: flex-start;
         align-items: center;
-        text-align: center;
-        flex-direction: column;
+         text-align: left;
+        flex-direction: row;
         gap: 0.5rem;
     }
 
     .logo-img {
-        margin: 0 auto;
+       margin: 0;
+        width: clamp(4.5rem, 18vw, 6rem);
+        height: clamp(1.3rem, 5vw, 1.8rem);
     }
 
     .logo span {
@@ -794,8 +801,8 @@ tr:hover {
     }
 
     .logo-img {
-        height: 1.5rem;
-        width: 5rem;
+       width: clamp(4rem, 22vw, 5rem);
+        height: clamp(1.1rem, 6vw, 1.5rem);
     }
 }
 
